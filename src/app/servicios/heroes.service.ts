@@ -19,7 +19,7 @@ export class HeroesService {
   constructor(private http: HttpClient) { }
 
   crearHeroe(heroe: HeroeModel) {
-    return this.http.post(`${this.url}´/heroes.json`, heroe)
+    return this.http.post(`${this.url}/heroes.json`, heroe)
       .pipe(
         map((resp: any)=> {
         heroe.id = resp.name;
@@ -30,7 +30,15 @@ export class HeroesService {
 
 
   actualizarHeroe(heroe:HeroeModel){
-    return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`,heroe)
+
+    const heroeTemp= {
+      ...heroe
+    };
+
+    //Para no enviar el id autoincrementable
+    delete heroeTemp.id;
+
+    return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`,heroeTemp)
   }
 
 }

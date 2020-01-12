@@ -27,17 +27,17 @@ export class HeroeComponent implements OnInit {
 
     //Aqui valido que si el heroe ya tiene id lo actualizo solamente
     if (this.heroe.id) {
-      this.heroesServices.actualizarHeroe(this.heroe).subscribe(resp=>{
+      this.heroesServices.actualizarHeroe(this.heroe).subscribe(resp => {
         console.log(resp);
       });
     } else {
-
+      this.heroesServices.crearHeroe(this.heroe).subscribe(resp => {
+        console.log(resp);
+        this.heroe = resp;
+      });
     }
 
-    this.heroesServices.crearHeroe(this.heroe).subscribe(resp => {
-      console.log(resp);
-      this.heroe = resp;
-    });
+
   }
 
 }
