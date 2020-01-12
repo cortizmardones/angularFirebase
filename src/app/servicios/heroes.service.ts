@@ -14,16 +14,23 @@ import { map } from 'rxjs/operators';
 })
 export class HeroesService {
 
+  private url = 'https://angularudemyfirebase.firebaseio.com';
+
   constructor(private http: HttpClient) { }
 
   crearHeroe(heroe: HeroeModel) {
-    return this.http.post('https://angularudemyfirebase.firebaseio.com/heroes.json', heroe)
+    return this.http.post(`${this.url}´/heroes.json`, heroe)
       .pipe(
         map((resp: any)=> {
         heroe.id = resp.name;
         return heroe;
       })
       );
+  }
+
+
+  actualizarHeroe(heroe:HeroeModel){
+    return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`,heroe)
   }
 
 }

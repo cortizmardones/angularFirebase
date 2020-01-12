@@ -12,21 +12,32 @@ export class HeroeComponent implements OnInit {
 
   heroe = new HeroeModel();
 
-  constructor( private heroesServices: HeroesService) { }
+  constructor(private heroesServices: HeroesService) { }
 
   ngOnInit() {
   }
 
 
-guardar(form: NgForm){
-  if(form.invalid){
-    console.log('Formulario no válido');
-    return;
-  }
+  guardar(form: NgForm) {
 
-  this.heroesServices.crearHeroe(this.heroe).subscribe(resp =>{
-    console.log(resp);
-  });
-}
+    if (form.invalid) {
+      console.log('Formulario no válido');
+      return;
+    }
+
+    //Aqui valido que si el heroe ya tiene id lo actualizo solamente
+    if (this.heroe.id) {
+      this.heroesServices.actualizarHeroe(this.heroe).subscribe(resp=>{
+        console.log(resp);
+      });
+    } else {
+
+    }
+
+    this.heroesServices.crearHeroe(this.heroe).subscribe(resp => {
+      console.log(resp);
+      this.heroe = resp;
+    });
+  }
 
 }
