@@ -6,6 +6,7 @@ import { HeroesService } from 'src/app/servicios/heroes.service';
 //Libreria para dar avisos bonitos
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-heroe',
@@ -16,9 +17,20 @@ export class HeroeComponent implements OnInit {
 
   heroe = new HeroeModel();
 
-  constructor(private heroesServices: HeroesService) { }
+  constructor(private heroesServices: HeroesService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if(id !== 'nuevo'){
+      this.heroesServices.getHeroe(id)
+      .subscribe((resp: HeroeModel) => {
+        this.heroe = resp;
+        this.heroe.id = id;
+      });
+    }
+
   }
 
 
