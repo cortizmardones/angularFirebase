@@ -8,6 +8,7 @@ import { HeroeModel } from '../models/heroe.model';
 
 //Tengo que reforzar esta parte.
 import { map } from 'rxjs/operators';
+import { ReturnStatement } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,11 @@ export class HeroesService {
     delete heroeTemp.id;
 
     return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`,heroeTemp)
+  }
+
+
+  getHeroes(){
+    return this.http.get(`${ this.url}/heroes.json`);
   }
 
 }
