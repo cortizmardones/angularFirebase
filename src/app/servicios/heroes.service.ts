@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { HeroeModel } from '../models/heroe.model';
 
 //Tengo que reforzar esta parte.
-import { map } from 'rxjs/operators';
+import { map, delay} from 'rxjs/operators';
 import { ReturnStatement } from '@angular/compiler';
 
 @Injectable({
@@ -46,7 +46,9 @@ export class HeroesService {
   //Metodos para mostrar los datos (Recordar que debos transformalos primero)
   getHeroes(){
     return this.http.get(`${ this.url}/heroes.json`)
-    .pipe(map(this.crearArreglo));
+    .pipe(map(this.crearArreglo),
+    delay(0)
+    );
   }
 
   private crearArreglo(heroesObj: object){
